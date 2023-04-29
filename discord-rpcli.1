@@ -1,0 +1,112 @@
+.Dd $Mdocdate: March 23 2023 $
+.Dt DISCORD-RPCLI 1
+.Os
+.Sh NAME
+.Nm discord-rpcli
+.Nd control Discord rich presence
+.Sh SYNOPSIS
+.Nm discord-rpcli
+.Bk -words
+.Op Fl b Ar stamp
+.Op Fl c Ar client
+.Op Fl d Ar details
+.Op Fl e Ar stamp
+.Op Fl Ii Ar image
+.Op Fl m Ar max
+.Op Fl p Ar size
+.Op Fl s Ar state
+.Op Fl Tt Ar text
+.Op Fl V
+.Ek
+.Sh DESCRIPTION
+.Nm
+is a program that manipulates rich presence statuses for the
+proprietary chat application Discord.
+Presence values can be specified on the command line, or
+through the values in the configuration file
+.Pq see Xr discord-rpcli.conf 5 .
+.Pp
+If no options are specified on the command line, and the
+configuration file was not found, a set of default values
+are used.
+.Pp
+If no Client ID is specified on the command line or in the
+configuration file, then a default Client ID is used.
+It is recommended that you create a Discord Developer Application
+and use the Client ID from that.
+.Pp
+The options are as follows:
+.Bl -tag -width keyword
+.It Fl b
+Use
+.Ar stamp
+as the presence's beginning timestamp (in Unix time). This will appear as
+.Dq Ar stamp elapsed .
+.It Fl c Ar client
+Use
+.Ar client
+as the presence's Client/Application ID.
+.It Fl d Ar details
+Use
+.Ar details
+as the details of the presence.
+.It Fl e
+Use
+.Ar stamp
+as the presence's ending timestamp (in Unix time). This will appear as
+.Dq Ar stamp remaining .
+.It Fl I Ar image
+Use
+.Ar image
+as the presence's large image key. Images can be uploaded via Discord's
+developer portal:
+.Lk <https://discord.com/developers>
+.It Fl i Ar image
+Use
+.Ar image
+as the presence's small image key. Images can be uploaded via Discord's
+developer portal:
+.Lk <https://discord.com/developers>
+.It Fl m Ar max
+Use
+.Ar max
+as the presence's maximum party count. This option will only be used if
+the party size and presence state were passed.
+.It Fl p Ar size
+Use
+.Ar size
+as the presence's party size. This option will only be used if the
+presence state was passed.
+.It Fl s Ar state
+Use
+.Ar state
+as the presence's state.
+.It Fl T Ar text
+Use
+.Ar text
+as the presence's large image hover text.
+.It Fl t Ar text
+Use
+.Ar text
+as the presence's small image hover text.
+.It Fl V
+Print the version number and exit.
+.Sh ENVIRONMENT
+.Bl -tag -width DISCORDRPCLI_CONFIG
+.It Ev DISCORDRPCLI_CONFIG
+Where to read the configuration file, rather than using the default location (see section
+.Sx FILES ) .
+.Sh FILES
+.Bl -tag -width ~/.config/discord-rpcli.conf
+.It Pa ~/.config/discord-rpcli.conf
+default configuration file location
+.El
+
+.Sh EXAMPLES
+Set a presence, with the details being "Accumulating Makefiles (23 of 100)":
+.Pp
+.Dl discord-rpcli -s 'Accumulating Makefiles' -p 23 -m 100
+.Pp
+
+.Sh SEE ALSO
+.Xr discord-rpcli.conf 5

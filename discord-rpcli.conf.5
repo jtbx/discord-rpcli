@@ -1,0 +1,68 @@
+.Dd $Mdocdate: March 23 2023 $
+.Dt DISCORD-RPCLI.CONF 5
+.Os
+.Sh NAME
+.Nm discord-rpcli.conf
+.Nd configuration file for discord-rpcli
+.Sh DESCRIPTION
+The
+.Xr discord-rpcli 1
+utility uses a configuration file to customize its default behaviour.
+This file uses the standard Unix configuration file format, with
+section-based key-value pairs. An example is listed below:
+.Pp
+.Dl [section]
+.Dl key = value
+.Pp
+Comments can be used by putting a pound
+.Dq #
+symbol at the beginning of a line.
+.Pp
+The available configuration options are as follows:
+.Bl -tag -width keyword
+.It Sy [presence]
+The
+.Sy [presence]
+section contains settings that modify Discord presence.
+.Bl -tag -width keyword
+.It Em client
+The Client/Application ID the presence should use.
+.It Em state
+The presence state.
+.It Em details
+Additional presence details.
+.It Em large-image
+The asset key of the main image to use in the presence. Images
+can be uploaded by visiting:
+.Lk https://discord.com/developers
+.It Em large-image-text
+The hover text to display when one hovers their mouse cursor over the
+main image.
+.It Em small-image
+The asset key of the secondary image to use in the presence. Images
+can be uploaded by visiting:
+.Lk https://discord.com/developers
+.It Em small-image-text
+The hover text to display when one hovers their mouse cursor over the
+secondary image.
+.It Em party-size
+The amount of people to show in your presence's party.
+.It Em party-max
+The maximum amount of people to show your party can have.
+.It Em start-timestamp
+The timestamp representing how long you have been active in this activity,
+in seconds from the Epoch (the 1st of January, 1970, 00:00 UTC).
+.It Em end-timestamp
+The timestamp representing the time your activity will end,
+in seconds from the Epoch (the 1st of January, 1970, 00:00 UTC).
+.El
+.El
+
+.Sh FILES
+.Bl -tag -width ~/.config/discord-rpcli.conf
+.It Pa ~/.config/discord-rpcli.conf
+default configuration file location
+.El
+
+.Sh SEE ALSO
+.Xr discord-rpcli 1
