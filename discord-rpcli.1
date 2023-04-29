@@ -7,7 +7,7 @@
 .Sh SYNOPSIS
 .Nm discord-rpcli
 .Bk -words
-.Op Fl b Ar stamp
+.Op Fl B Ar stamp
 .Op Fl c Ar client
 .Op Fl d Ar details
 .Op Fl e Ar stamp
@@ -16,7 +16,7 @@
 .Op Fl p Ar size
 .Op Fl s Ar state
 .Op Fl Tt Ar text
-.Op Fl V
+.Op Fl bV
 .Ek
 .Sh DESCRIPTION
 .Nm
@@ -38,10 +38,14 @@ and use the Client ID from that.
 The options are as follows:
 .Bl -tag -width keyword
 .It Fl b
+Equivalent to
+.Sy -B $(date +%s) ;
+uses the current time as the presence's beginning timestamp.
+.It Fl B
 Use
 .Ar stamp
 as the presence's beginning timestamp (in Unix time). This will appear as
-.Dq Ar stamp elapsed .
+the amount of time "elapsed".
 .It Fl c Ar client
 Use
 .Ar client

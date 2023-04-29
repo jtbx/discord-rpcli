@@ -1,16 +1,16 @@
-import std.conv    : to, ConvException;
-import std.file    : exists;
-import std.getopt  : getopt, GetOptException, config;
-import std.path    : baseName, expandTilde;
-import std.process : environment;
-import std.regex   : matchFirst, regex;
-import std.stdio   : writeln, writefln, stderr;
-import std.string  : toStringz;
+import std.conv     : to, ConvException;
+import std.datetime : Clock, stdTimeToUnixTime;
+import std.file     : exists;
+import std.getopt   : getopt, GetOptException, config;
+import std.path     : baseName, expandTilde;
+import std.process  : environment;
+import std.regex    : matchFirst, regex;
+import std.stdio    : writeln, writefln, stderr;
+import std.string   : toStringz;
 
 import core.stdc.stdlib : exit;
 import core.stdc.signal : signal, SIGINT;
-import core.stdc.string : memset;
-import core.runtime     : Runtime;
+import core.stdc.string : memset; import core.runtime     : Runtime;
 import core.thread      : dur, Thread;
 
 import discord_rpc;
@@ -37,6 +37,7 @@ int optPartySize;
 int optPartyMax;
 long optStartTimestamp;
 long optEndTimestamp;
+bool optAutomaticStartTimestamp;
 
 bool optVersion;
 
@@ -62,7 +63,8 @@ int main(string[] args)
 		args.getopt(
 			config.bundling,
 			config.caseSensitive,
-			"b", &optStartTimestamp, // 'b' for beginning
+			"b", &optAutomaticStartTimestamp,
+			"B", &optStartTimestamp, // 'b' for beginning
 			"c", &optClient,
 			"d", &optDetails,
 			"e", &optEndTimestamp,
@@ -94,7 +96,7 @@ int main(string[] args)
 
 	if (args.length > 1) {
 		stderr.writefln(
-			"usage: %s [-b stamp] [-c client] [-d details] [-e stamp] [-Ii image] [-m max] [-p size] [-s state] [-Tt text] [-V]",
+			"usage: %s [-B stamp] [-c client] [-d details] [-e stamp] [-Ii image] [-m max] [-p size] [-s state] [-Tt text] [-bV]",
 		args[0].baseName());
 		return 1;
 	}
@@ -163,6 +165,8 @@ int main(string[] args)
 			presencePartySize = optPartySize;
 		if (optPartyMax)
 			presencePartyMax = optPartyMax;
+		if (optAutomaticStartTimestamp)
+			presenceStartTimestamp = Clock.currStdTime.stdTimeToUnixTime();
 		if (optStartTimestamp)
 			presenceStartTimestamp = optStartTimestamp;
 		if (optEndTimestamp)
