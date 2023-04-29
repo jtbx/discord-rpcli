@@ -203,6 +203,8 @@ int main(string[] args)
 
 	// Main loop
 	while (true) {
+		if (presenceStartTimestamp)
+			presence.startTimestamp = presenceStartTimestamp - 1;
 		Discord_UpdatePresence(&presence);
 		Discord_RunCallbacks();
 		Thread.sleep(dur!("msecs")(16));
