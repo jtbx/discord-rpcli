@@ -16,7 +16,7 @@ import core.thread      : dur, Thread;
 import discord_rpc;
 import dini;
 
-enum VERSION = "0";
+enum VERSION = "0.1.0";
 
 enum DEFAULT_CONFIGPATH = "~/.config/discord-rpcli.conf";
 enum ENV_CONFIG = "DISCORDRPCLI_CONFIG";
