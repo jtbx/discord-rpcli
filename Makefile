@@ -16,12 +16,11 @@
 PROG      = discord-rpcli
 IMPORT    = import
 PREFIX    = /usr/local
-SOPREFIX  = /usr
-MANPREFIX = /usr/share/man
+MANPREFIX = ${PREFIX}/share/man
 
 DC      = ldc2
 CFLAGS  = -O -I${IMPORT}
-LDFLAGS = -L-L. -L-ldiscord-rpc
+LDFLAGS = -L-ldiscord-rpc
 OBJS    = main.o ini.o
 
 all: discord-rpcli
@@ -40,8 +39,9 @@ clean:
 	rm -f ${PROG} ${OBJS}
 
 install: discord-rpcli
-	install -m755 discord-rpcli ${DESTDIR}${PREFIX}/bin/discord-rpcli
-	install -m755 libdiscord-rpc.so ${DESTDIR}${SOPREFIX}/lib64/libdiscord-rpc.so
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	mkdir -p ${DESTDIR}${MANPREFIX}/{man1,man5}
+	cp -f discord-rpcli ${DESTDIR}${PREFIX}/bin/discord-rpcli
 	cp -f discord-rpcli.1 ${DESTDIR}${MANPREFIX}/man1
 	cp -f discord-rpcli.conf.5 ${DESTDIR}${MANPREFIX}/man5
 
